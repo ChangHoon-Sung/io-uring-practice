@@ -12,11 +12,11 @@
 int main(int argc, char *argv[]) {
     struct stat st;
     ssize_t fsize;
-    int blocks;
+    int blocks, offset;
     void *buf;
     int fd, ret;
 
-    fd = open("../1G.bin", O_RDONLY | O_DIRECT);
+    fd = open(argv[1], O_RDONLY | O_DIRECT);
     if (fd < 0) {
         perror("open");
         return 1;
@@ -37,10 +37,22 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
+    offset = 0;
     for (int i = 0; i < blocks; i++) {
-        read(fd, buf + i, BLOCK_SZ);
+        if (i % 2 == 0) {
+            // read file from file offset to buf
+            lseek(fd, offset, SEEK_SET);
+            read(fd, buf + i / 2 * BLOCK_SZ, BLOCK_SZ);
+        } else {
+            // read file from file offset to buf
+            lseek(fd, offset, SEEK_SET);
+            read(fd, buf + fsize - BLOCK_SZ - i / 2 * BLOCK_SZ, BLOCK_SZ);
+        }
+        if (i > 0 && i % 2 == 1)
+            offset += BLOCK_SZ;
     }
 
+    free(buf);
     close(fd);
     return 0;
 }
