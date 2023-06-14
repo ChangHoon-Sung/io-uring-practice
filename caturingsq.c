@@ -160,8 +160,9 @@ int main(int argc, char *argv[]) {
     }
 
     // print the buffer to stdout
-    output_to_console(buf, fsize);
+    // output_to_console(buf, fsize);
 
+    free(buf);
     close(fd);
     io_uring_queue_exit(&ring);
 

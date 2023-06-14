@@ -99,6 +99,7 @@ int main(int argc, char *argv[]) {
         }
 
         // zigzag read
+        // io_uring_prep_read(sqe, file descriptor, buffer, nbytes, offset)
         if (i % 2 == 0) {
             io_uring_prep_read(sqe, fd, buf + i / 2 * BLOCK_SZ, BLOCK_SZ, offset);
             // fprintf(stderr, "read file from %ld to %ld ", offset, offset + BLOCK_SZ - 1);
@@ -145,8 +146,9 @@ int main(int argc, char *argv[]) {
     }
 
     // print the buffer to stdout
-    output_to_console(buf, fsize);
+    // output_to_console(buf, fsize);
 
+    free(buf);
     close(fd);
     io_uring_queue_exit(&ring);
 
