@@ -45,14 +45,13 @@ int main(int argc, char *argv[]) {
             read(fd, buf + i / 2 * BLOCK_SZ, BLOCK_SZ);
         } else {
             // read file from file offset to buf
-            lseek(fd, offset, SEEK_SET);
+            lseek(fd, fsize - offset - BLOCK_SZ, SEEK_SET);
             read(fd, buf + fsize - BLOCK_SZ - i / 2 * BLOCK_SZ, BLOCK_SZ);
         }
         if (i > 0 && i % 2 == 1)
             offset += BLOCK_SZ;
     }
 
-    free(buf);
     close(fd);
     return 0;
 }
