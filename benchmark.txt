@@ -1,0 +1,21 @@
+mars# sync; echo 3 > /proc/sys/vm/drop_caches; for i in {1..6}; do time ./normalread ../../1G.bin; done
+./normalread ../../1G.bin  0.02s user 0.51s system 9% cpu 5.471 total
+./normalread ../../1G.bin  0.02s user 0.57s system 10% cpu 5.593 total
+./normalread ../../1G.bin  0.02s user 0.57s system 11% cpu 5.204 total
+./normalread ../../1G.bin  0.03s user 0.56s system 11% cpu 4.914 total
+./normalread ../../1G.bin  0.01s user 0.54s system 9% cpu 6.037 total
+./normalread ../../1G.bin  0.02s user 0.58s system 10% cpu 5.617 total
+mars# sync; echo 3 > /proc/sys/vm/drop_caches; for i in {1..6}; do time ./caturing ../../1G.bin; done 
+./caturing ../../1G.bin  0.01s user 0.63s system 58% cpu 1.088 total
+./caturing ../../1G.bin  0.00s user 0.71s system 99% cpu 0.711 total
+./caturing ../../1G.bin  0.01s user 0.70s system 99% cpu 0.712 total
+./caturing ../../1G.bin  0.00s user 0.70s system 99% cpu 0.709 total
+./caturing ../../1G.bin  0.01s user 0.69s system 99% cpu 0.706 total
+./caturing ../../1G.bin  0.01s user 0.71s system 99% cpu 0.715 total
+mars# sync; echo 3 > /proc/sys/vm/drop_caches; for i in {1..6}; do time ./caturingsq ../../1G.bin; done
+./caturingsq ../../1G.bin  1.01s user 0.65s system 157% cpu 1.057 total
+./caturingsq ../../1G.bin  0.64s user 0.71s system 199% cpu 0.676 total
+./caturingsq ../../1G.bin  0.63s user 0.70s system 199% cpu 0.668 total
+./caturingsq ../../1G.bin  0.65s user 0.72s system 199% cpu 0.687 total
+./caturingsq ../../1G.bin  0.64s user 0.71s system 199% cpu 0.673 total
+./caturingsq ../../1G.bin  0.64s user 0.71s system 199% cpu 0.676 total
